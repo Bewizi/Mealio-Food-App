@@ -8,11 +8,39 @@
 import SwiftUI
 
 struct AppText: View {
+    let title: String
+    let fontSize: CGFloat
+    let textColor: Color
+    let fontWeight: Font.Weight?
+    let textAlignment: TextAlignment?
+
+    init(
+        title: String,
+        fontSize: CGFloat = 16,
+        textColor: Color = .primary,
+        fontWeight: Font.Weight? = nil,
+        textAlignment: TextAlignment? = nil
+    ) {
+        self.title = title
+        self.fontSize = fontSize
+        self.textColor = textColor
+        self.fontWeight = fontWeight
+        self.textAlignment = textAlignment
+    }
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text(title)
+            .foregroundStyle(textColor)
+            .font(.system(size: fontSize, weight: fontWeight))
+//            .modifier(OptionalMultilineAlignment(textAlignment))
+            .multilineTextAlignment(textAlignment ?? .center)
     }
 }
 
 #Preview {
-    AppText()
+    VStack(alignment: .leading, spacing: 16) {
+        AppText(title: "Hello World default")
+        AppText(title: "Hello World centered", fontSize: 24, textColor: .red, fontWeight: .regular, textAlignment: .center)
+    }
+    .padding()
 }
