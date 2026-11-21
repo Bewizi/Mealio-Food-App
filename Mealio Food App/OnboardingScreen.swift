@@ -8,48 +8,63 @@
 import SwiftUI
 
 struct OnboardingScreen: View {
+    @State var currentPage = 0
     
+    func nextPage(){
+        if currentPage < 1{
+            currentPage += 1
+        }
+    }
     var body: some View {
         VStack{
-            Image("Delivery_at_the_Doorstep")
-                .resizable()
-                .scaledToFit()
-                .frame(maxWidth: 350, alignment: .center)
-            VStack(spacing: 8){
-                AppText(title: "Welcome to Mealio 🍽️", fontSize: 24,  textColor: Color("black"), fontWeight: .regular,)
-                AppText(title: "Discover your favorite meals and get them delivered fast and fresh.", fontSize: 20,  textColor: Color("grey"), fontWeight: .regular,)
-                    .lineHeight(.leading(increase: 8))
+            TabView(selection: $currentPage){
+                OnboardingView(
+                    image: "Delivery_at_the_Doorstep",
+                    title: "Welcome to Mealio 🍽️",
+                    subTitle: "Discover your favorite meals and get them delivered fast and fresh.",
+                    currentPage: currentPage,
+                    pageIndex: 0
+                )
+                .tag(0)
+                
+                
+                OnboardingView(
+                    image: "eat_happily",
+                    title: "Order Easily, Eat Happily",
+                    subTitle: "Track your orders in real-time and enjoy quick, secure checkout.",
+                    currentPage: currentPage,
+                    pageIndex: 1
+                    
+                )
+                .tag(1)
             }
+            .tabViewStyle(.page)
             .padding(.bottom, 64)
             
-                HStack{
-                    ProgressIndicator(color: Color("success"))
-                    ProgressIndicator(color: Color("grey").opacity(0.3))
+            ProgressIndicator(currentPage: currentPage)
+            
+            VStack(spacing: 24){
+                Button{
+                    nextPage()
+                }label: {
+                    AppText(title: "Next", fontSize: 16,  textColor: Color("white"), fontWeight: .bold,)
                 }
-                .padding(.bottom, 23)
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .center)
+                .background(Color("success"))
+                .clipShape(RoundedRectangle(cornerRadius: 42))
                 
-                VStack(spacing: 24){
-                    Button{
-                        
-                    }label: {
-                        AppText(title: "Next", fontSize: 16,  textColor: Color("white"), fontWeight: .bold,)
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .background(Color("success"))
-                    .clipShape(RoundedRectangle(cornerRadius: 42))
+                Button{
                     
-                    Button{
-                        
-                    }label: {
-                        AppText(title: "Skip", fontSize: 16,  textColor: Color("success"), fontWeight: .bold,)
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .background(Color("ghost").opacity(0.20))
-                    .clipShape(RoundedRectangle(cornerRadius: 42))
+                }label: {
+                    AppText(title: "Skip", fontSize: 16,  textColor: Color("success"), fontWeight: .bold,)
                 }
-                
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .center)
+                .background(Color("ghost").opacity(0.20))
+                .clipShape(RoundedRectangle(cornerRadius: 42))
+            }
+            
             
         }
         .padding(.horizontal, 20)
@@ -58,16 +73,44 @@ struct OnboardingScreen: View {
 }
 
 struct ProgressIndicator: View {
-    @State private var isActive = false
-    @State var color = Color("success")
+    let currentPage: Int
     var body: some View {
-            VStack{
-                color
+        
+        HStack{
+            ForEach(0..<2){
+                index in
+                Capsule()
+                    .fill(index == currentPage ? Color("success") : Color("grey").opacity(0.5))
+                    .frame(width: 34, height: 6)
+                    .clipShape(RoundedRectangle(cornerRadius: 100))
             }
-            .frame(width: 34, height: 6)
-            .clipShape(RoundedRectangle(cornerRadius: 100))
+        }
+        .padding(.bottom, 23)
     }
 }
+
+struct OnboardingView: View {
+    let image: String
+    let title: String
+    let subTitle: String
+    
+    let currentPage: Int
+    let pageIndex: Int
+    var body: some View {
+        VStack{
+            Image(image)
+                .resizable()
+                .scaledToFit()
+                .frame(maxWidth: 350, alignment: .center)
+            VStack(spacing: 8){
+                AppText(title: title, fontSize: 24,  textColor: Color("black"), fontWeight: .regular,)
+                AppText(title: subTitle, fontSize: 20,  textColor: Color("grey"), fontWeight: .regular,)
+                    .lineHeight(.leading(increase: 8))
+            }
+        }
+    }
+}
+
 
 
 
