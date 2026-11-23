@@ -1,0 +1,36 @@
+{
+  "fill" : {
+    "solid" : "display-p3:0.33154,0.70703,0.38281,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "image-name" : "fluent-emoji-high-contrast_fork-and-knife-with-plate 2.svg",
+          "name" : "fluent-emoji-high-contrast_fork-and-knife-with-plate 2",
+          "position" : {
+            "scale" : 18,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.3
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}
