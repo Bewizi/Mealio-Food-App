@@ -47,7 +47,7 @@ struct OnboardingScreen: View {
                 Button{
                     nextPage()
                 }label: {
-                    AppText(title: "Next", fontSize: 16,  textColor: Color("white"), fontWeight: .bold,)
+                    AppText(title: "Next", fontSize: 16,  textColor: Color("white"), custom: "Roboto-SemiBold",)
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -57,7 +57,7 @@ struct OnboardingScreen: View {
                 Button{
                     
                 }label: {
-                    AppText(title: "Skip", fontSize: 16,  textColor: Color("success"), fontWeight: .bold,)
+                    AppText(title: "Skip", fontSize: 16,  textColor: Color("success"), custom: "Roboto-SemiBold",)
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -102,9 +102,10 @@ struct OnboardingView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(maxWidth: 350, alignment: .center)
+                .padding(.bottom, 49)
             VStack(spacing: 8){
-                AppText(title: title, fontSize: 24,  textColor: Color("black"), fontWeight: .regular,)
-                AppText(title: subTitle, fontSize: 20,  textColor: Color("grey"), fontWeight: .regular,)
+                AppText(title: title, fontSize: 24,  textColor: Color("black"), custom: "Roboto-SemiBold",)
+                AppText(title: subTitle, fontSize: 20,  textColor: Color("grey"), custom: "Roboto-Regular",)
                     .lineHeight(.leading(increase: 8))
             }
         }

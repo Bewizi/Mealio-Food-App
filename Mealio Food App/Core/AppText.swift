@@ -13,25 +13,28 @@ struct AppText: View {
     let textColor: Color
     let fontWeight: Font.Weight?
     let textAlignment: TextAlignment?
+    let customFont: String?
 
     init(
         title: String,
         fontSize: CGFloat = 16,
         textColor: Color = .primary,
         fontWeight: Font.Weight? = nil,
-        textAlignment: TextAlignment? = nil
+        textAlignment: TextAlignment? = nil,
+        custom: String? = nil
     ) {
         self.title = title
         self.fontSize = fontSize
         self.textColor = textColor
         self.fontWeight = fontWeight
         self.textAlignment = textAlignment
+        self.customFont = custom
     }
 
     var body: some View {
         Text(title)
             .foregroundStyle(textColor)
-            .font(.system(size: fontSize, weight: fontWeight))
+            .font(customFont.map { Font.custom($0, size: fontSize) } ?? .system(size: fontSize, weight: fontWeight))
 //            .modifier(OptionalMultilineAlignment(textAlignment))
             .multilineTextAlignment(textAlignment ?? .center)
     }
