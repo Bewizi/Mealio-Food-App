@@ -48,7 +48,7 @@ struct HomeScreen: View {
                 }
             }
             .padding(.bottom, 20)
-            
+
             HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass")
                     .font(.system(size: 24))
@@ -74,42 +74,47 @@ struct HomeScreen: View {
             .clipShape(Capsule())
             .padding(.bottom, 20)
             
-            ZStack(alignment: .leading){
-                Image("food-ready")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity)
-                    .clipShape(RoundedRectangle(cornerRadius: 24))
-                
-                VStack(alignment:.leading, spacing: 8){
-                    //            welcome message
-                    AppText(title: "Free delivery today", fontSize: 16, textColor: .white, custom: "Roboto-Bold")
-                    //            usersname
-                    AppText(title: "For every meals order today, you’ll get free deliveries with no hidden charges", fontSize: 10, textColor: .white,textAlignment: .leading, custom: "Roboto-Regular",)
-                        .padding(.bottom, 16)
+            ScrollView(.vertical, showsIndicators: false){
+                ZStack(alignment: .leading){
+                    Image("food-ready")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity)
+                        .clipShape(RoundedRectangle(cornerRadius: 24))
                     
-                    Button{
+                    VStack(alignment:.leading, spacing: 8){
+                        //            welcome message
+                        AppText(title: "Free delivery today", fontSize: 16, textColor: .white, custom: "Roboto-Bold")
+                        //            usersname
+                        AppText(title: "For every meals order today, you’ll get free deliveries with no hidden charges", fontSize: 10, textColor: .white,textAlignment: .leading, custom: "Roboto-Regular",)
+                            .padding(.bottom, 16)
                         
-                    }label: {
-                        AppText(title: "Order Now", fontSize: 12,  textColor: Color("primary"), custom: "Roboto-Medium",)
+                        Button{
+                            
+                        }label: {
+                            AppText(title: "Order Now", fontSize: 12,  textColor: Color("primary"), custom: "Roboto-Medium",)
+                        }
+                        .padding(.vertical,13)
+                        .frame(maxWidth: 127, alignment: .center)
+                        .background(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 42))
+                        
                     }
-                    .padding(.vertical,13)
-                    .frame(maxWidth: 127, alignment: .center)
-                    .background(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 42))
-                    
+                    .padding(.horizontal, 10)
+                    .frame(maxWidth: 200)
                 }
-                .padding(.horizontal, 10)
-                .frame(maxWidth: 200)
+                .padding(.bottom, 20)
+                
+                CategoryFilterBar()
+                    .padding(.bottom, 20)
+                ExploreRestaurantsSection()
+                    .padding(.bottom, 20)
+                PopularMeals()
             }
-            .padding(.bottom, 20)
-            
-            CategoryFilterBar()
         }
         .padding(.horizontal, 20)
         .frame(maxHeight: .infinity)
-        .background(.white)
-        .ignoresSafeArea()
+        .background(Color("white"))
         
     }
 }
