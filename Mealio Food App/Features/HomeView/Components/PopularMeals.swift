@@ -14,12 +14,25 @@ struct PopularMeals: View {
             ScrollView(.horizontal, showsIndicators: false){
                 HStack(spacing: 30){
                     VStack(alignment: .leading, spacing: 10){
-                        ZStack
-                        {
+                        ZStack {
                             Image("fish-chips")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 300)
+                                .overlay(alignment: .topTrailing){
+                                    
+                                        Image("hugeicons_favourite")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .padding()
+                                            .background(
+                                                Circle()
+                                                    .fill(.graphite).opacity(0.15)
+                                            )
+                                            .frame(width: 60, height: 60)
+                                            .padding(.top, 8)
+                                            .padding(.trailing, 4)
+                                }
                         }
                         .padding(.bottom, 10)
                         
@@ -68,7 +81,7 @@ struct PopularMeals: View {
                         
                         VStack(alignment: .leading){
                             HStack{
-                                AppText(title: "Roasted chicken ", fontSize: 15, custom: "Roboto-SemiBold")
+                                AppText(title: "Roasted chicken", fontSize: 15, custom: "Roboto-SemiBold")
                                 
                                 
                             }

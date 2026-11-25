@@ -115,6 +115,7 @@ struct HomeScreen: View {
         .padding(.horizontal, 20)
         .frame(maxHeight: .infinity)
         .background(Color("white"))
+
         
     }
 }

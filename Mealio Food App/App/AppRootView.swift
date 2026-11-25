@@ -12,7 +12,7 @@ struct AppRootView: View {
             }
         }
         .onAppear{
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10){
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5){
                 withAnimation(.easeInOut){
                     isSplash = false
                 }

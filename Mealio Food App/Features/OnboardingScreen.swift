@@ -16,59 +16,62 @@ struct OnboardingScreen: View {
         }
     }
     var body: some View {
-        VStack{
-            TabView(selection: $currentPage){
-                OnboardingView(
-                    image: "Delivery_at_the_Doorstep",
-                    title: "Welcome to Mealio 🍽️",
-                    subTitle: "Discover your favorite meals and get them delivered fast and fresh.",
-                    currentPage: currentPage,
-                    pageIndex: 0
-                )
-                .tag(0)
-                
-                
-                OnboardingView(
-                    image: "eat_happily",
-                    title: "Order Easily, Eat Happily",
-                    subTitle: "Track your orders in real-time and enjoy quick, secure checkout.",
-                    currentPage: currentPage,
-                    pageIndex: 1
+        NavigationStack{
+            VStack{
+                TabView(selection: $currentPage){
+                    OnboardingView(
+                        image: "Delivery_at_the_Doorstep",
+                        title: "Welcome to Mealio 🍽️",
+                        subTitle: "Discover your favorite meals and get them delivered fast and fresh.",
+                        currentPage: currentPage,
+                        pageIndex: 0
+                    )
+                    .tag(0)
                     
-                )
-                .tag(1)
-            }
-            .tabViewStyle(.page)
-            .padding(.bottom, 64)
-            
-            ProgressIndicator(currentPage: currentPage)
-            
-            VStack(spacing: 24){
-                Button{
-                    nextPage()
-                }label: {
-                    AppText(title: "Next", fontSize: 16,  textColor: Color("white"), custom: "Roboto-SemiBold",)
-                }
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .center)
-                .background(Color("success"))
-                .clipShape(RoundedRectangle(cornerRadius: 42))
-                
-                Button{
                     
-                }label: {
-                    AppText(title: "Skip", fontSize: 16,  textColor: Color("success"), custom: "Roboto-SemiBold",)
+                    OnboardingView(
+                        image: "eat_happily",
+                        title: "Order Easily, Eat Happily",
+                        subTitle: "Track your orders in real-time and enjoy quick, secure checkout.",
+                        currentPage: currentPage,
+                        pageIndex: 1
+                        
+                    )
+                    .tag(1)
                 }
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .center)
-                .background(Color("ghost").opacity(0.20))
-                .clipShape(RoundedRectangle(cornerRadius: 42))
+                .tabViewStyle(.page)
+                .padding(.bottom, 64)
+                
+                ProgressIndicator(currentPage: currentPage)
+                
+                VStack(spacing: 24){
+                    Button{
+                        nextPage()
+                    }label: {
+                        AppText(title: "Next", fontSize: 16,  textColor: Color("white"), custom: "Roboto-SemiBold",)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .background(Color("success"))
+                    .clipShape(RoundedRectangle(cornerRadius: 42))
+                    
+                    NavigationLink{
+                        NavigationBar()
+                            .navigationBarBackButtonHidden()
+                    }label: {
+                        AppText(title: "Skip", fontSize: 16,  textColor: Color("success"), custom: "Roboto-SemiBold",)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .background(Color("ghost").opacity(0.20))
+                    .clipShape(RoundedRectangle(cornerRadius: 42))
+                }
+                
+                
             }
-            
-            
+            .padding(.horizontal, 20)
+            .frame(maxHeight: .infinity, alignment: .top)
         }
-        .padding(.horizontal, 20)
-        .frame(maxHeight: .infinity, alignment: .top)
     }
 }
 
