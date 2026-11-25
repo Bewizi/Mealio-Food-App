@@ -12,7 +12,37 @@ struct SignupScreen: View {
     @State private var password = ""
     @State private var confirmPassword = ""
     
+//    error message display
+    @State private var emailError: String?
+    @State private var passwordError: String?
+    @State private var confirmPasswordError: String?
     
+    @State private var isSigningUp = false
+    
+    @FocusState private var emailFieldIsFocused: Bool
+    
+    
+    func validateSignup(){
+        if email.isEmpty {
+            emailError = "Email is required"
+        } else if !email.contains("@") {
+            emailError = "Enter a valid email address"
+        } else {
+            emailError = nil
+        }
+
+        if password.count < 8 {
+            passwordError = "Password must contain 8 characters"
+        } else {
+            passwordError = nil
+        }
+
+        if confirmPassword != password {
+            confirmPasswordError = "The password you entered doesn’t match"
+        } else {
+            confirmPasswordError = nil
+        }
+    }
     var body: some View {
         ZStack(alignment: .leading){
             Color("primary")
@@ -32,21 +62,39 @@ struct SignupScreen: View {
                     .padding(.bottom, 33)
                     
                     VStack(alignment: .leading){
-                        InputTextField(placeholder: "Your email", textFieldName: "Email:", text: $email)
+                        InputTextField(placeholder: "Your email", textFieldName: "Email:",
+                                       errorMessage: emailError,
+                                       text: $email)
+                            .focused($emailFieldIsFocused, equals: true)
                         
-                        InputPasswordField(placeholder: "Enter your password", passwordFieldName: "Create Password:", password: $password)
+                        InputPasswordField(placeholder: "Enter your password", passwordFieldName: "Create Password:", errorMessage: passwordError, password: $password)
                         
-                        InputPasswordField(placeholder: "Enter your password", passwordFieldName: "Confirm Password:", password: $confirmPassword)
+                        InputPasswordField(placeholder: "Enter your password", passwordFieldName: "Confirm Password:", errorMessage: confirmPasswordError, password: $confirmPassword)
+                        
+                        
                         
                         Button{
+                          validateSignup()
                             
+                            
+                            if emailError == nil &&
+                                passwordError == nil &&
+                                confirmPasswordError == nil {
+                                
+                                print("Signup Success")
+                            }
                         }label: {
-                            AppText(title: "Create Account", fontSize: 16,  textColor: Color("white"), custom: "Roboto-SemiBold",)
+                            if isSigningUp{
+                                ProgressView()
+                            }else{
+                                AppText(title: "Create Account", fontSize: 16,  textColor: Color("white"), custom: "Roboto-SemiBold",)
+                            }
                         }
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .center)
                         .background(Color("success"))
                         .clipShape(RoundedRectangle(cornerRadius: 42))
+                        .disabled(isSigningUp)
                     }
                     .padding(.bottom, 20)
                     
@@ -61,7 +109,8 @@ struct SignupScreen: View {
                             custom: "Roboto-Bold"
                         )
                         NavigationLink{
-                            
+                            LoginScreen()
+                                .navigationBarBackButtonHidden()
                             
                         }label:{
                             AppText(
