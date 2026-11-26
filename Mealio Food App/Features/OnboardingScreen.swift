@@ -60,6 +60,7 @@ struct OnboardingScreen: View {
                     
                     NavigationLink{
                         LoginScreen()
+                            .navigationBarBackButtonHidden()
                     }label: {
                         AppText(title: "Skip", fontSize: 16,  textColor: Color("success"), custom: "Roboto-SemiBold",)
                     }

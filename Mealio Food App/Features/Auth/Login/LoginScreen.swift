@@ -12,6 +12,9 @@ struct LoginScreen: View {
     @State private var email = ""
     @State private var password = ""
     
+    @State private var errorMessage: String?
+    @State private var passwordMessage: String?
+    
     var body: some View {
         ZStack{
             Color("primary")
@@ -32,16 +35,15 @@ struct LoginScreen: View {
                     
                     VStack(alignment: .leading){
                         InputTextField(placeholder: "Your email", textFieldName: "Email:",
-                                       errorMessage: "",
+                                       errorMessage: errorMessage,
                                        text: $email)
                         
                         VStack(alignment: .trailing, spacing: -8){
-                            InputPasswordField(placeholder: "Enter your password", passwordFieldName: "Create Password:", errorMessage: "", password: $password)
+                            InputPasswordField(placeholder: "Enter your password", passwordFieldName: "Create Password:", errorMessage: passwordMessage, password: $password)
                             
                             NavigationLink{
-                                SignupScreen()
+                            ResetPassword()
                                     .navigationBarBackButtonHidden()
-                                
                             }label:{
                                 AppText(
                                     title: "Forget Password?",
@@ -79,8 +81,8 @@ struct LoginScreen: View {
                             custom: "Roboto-Bold"
                         )
                         NavigationLink{
-                            
-                            
+                            SignupScreen()
+                                .navigationBarBackButtonHidden()
                         }label:{
                             AppText(
                                 title: "Sign up",
