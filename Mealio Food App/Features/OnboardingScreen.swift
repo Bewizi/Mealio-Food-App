@@ -9,10 +9,13 @@ import SwiftUI
 
 struct OnboardingScreen: View {
     @State var currentPage = 0
+    @State private var showSignup = false
     
     func nextPage(){
         if currentPage < 1{
             currentPage += 1
+        }else{
+            showSignup = true
         }
     }
     var body: some View {
@@ -56,8 +59,7 @@ struct OnboardingScreen: View {
                     .clipShape(RoundedRectangle(cornerRadius: 42))
                     
                     NavigationLink{
-                        NavigationBar()
-                            .navigationBarBackButtonHidden()
+                        LoginScreen()
                     }label: {
                         AppText(title: "Skip", fontSize: 16,  textColor: Color("success"), custom: "Roboto-SemiBold",)
                     }
@@ -72,6 +74,12 @@ struct OnboardingScreen: View {
             .padding(.horizontal, 20)
             .frame(maxHeight: .infinity, alignment: .top)
         }
+        .navigationDestination(
+            isPresented: $showSignup){
+                 SignupScreen()
+                    .navigationBarBackButtonHidden()
+            }
+        
     }
 }
 
